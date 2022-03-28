@@ -8,11 +8,8 @@ app.use(express.json())
 
 app.get('/api/topics', getTopics)
 
-app.use('/*', (req, res, next) => next({ status: 404 }));
-
-app.use((err, req, res, next) => {
-    if(err.status === 404) res.status(404).send({ message: '404: Page Not Found.' })
-    else next(err);
+app.use('/*', (req, res) => {
+    res.status(404).send({ msg: '404: Page Not Found.' });
 });
 
 app.use((err, req, res, next) => {

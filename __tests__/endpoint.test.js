@@ -36,7 +36,7 @@ describe('GET /api/topics', () => {
         .get('/ajenfoiejgfa')
         .expect(404)
         .then(({body}) => {
-            expect(body.message).toBe('404: Page Not Found.')
+            expect(body.msg).toBe('404: Page Not Found.')
         } )
     })
 })
