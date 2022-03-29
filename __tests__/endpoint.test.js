@@ -41,6 +41,25 @@ describe('GET /api/topics', () => {
     })
 })
 
+
+describe('GET /api/users', () => {
+    test('responds with an array of usernames ONLY', () => {
+    return request(app)
+    .get('/api/users')
+    .expect(200)
+    .then(({ body }) => {
+        const { usernames } = body;
+        usernames.forEach((username) => {
+            expect(username).toEqual(
+                expect.objectContaining({
+                    username: expect.any(String)
+                })
+            )
+        })
+    }) 
+})
+})
+
 describe('GET /api/articles/:article_id', () => {
     test('status:200, responds with a single matching articles', () => {
       const ARTICLE_ID = 2;
@@ -69,3 +88,4 @@ describe('GET /api/articles/:article_id', () => {
         })
     })
   });
+
