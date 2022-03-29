@@ -59,7 +59,7 @@ describe('GET /api/articles/:article_id', () => {
           });
         })
     });
-    test('status something, put in a number that isnt there', () => {
+    test('status 404, put in a number of a article that doesnt exist', () => {
         const ARTICLE_ID = 999999
         return request(app)
         .get(`/api/articles/${ARTICLE_ID}`)
