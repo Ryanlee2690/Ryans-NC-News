@@ -9,3 +9,20 @@ exports.selectAllTopics = () => {
         return rows
     });
 };
+
+exports.updateVotesById = (articleInfo, articleID) => {
+    const {inc_votes} = articleInfo
+   if (typeof inc_votes !== 'number') {
+       return Promise.reject({ msg: 'Is it that hard to just use numbers?', status: 404})
+   }
+     return db.query("SELECT votes FROM articles WHERE article_id = $1", [articleID]).then(({rows}) =>{
+        let newVoteTotal = (rows[0].votes + inc_votes)
+        if (newVoteTotal < 0) {
+            newVoteTotal = 0
+        }
+        return db.query("UPDATE articles SET votes = $1 WHERE  article_id = $2 RETURNING*;", [newVoteTotal, articleID])
+        .then(({rows}) => {
+            return rows[0].votes
+        })
+    })
+};
