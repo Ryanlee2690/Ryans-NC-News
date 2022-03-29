@@ -48,7 +48,6 @@ describe('GET /api/users', () => {
     .expect(200)
     .then(({ body }) => {
         const { usernames } = body;
-        console.log(usernames)
         usernames.forEach((username) => {
             expect(username).toEqual(
                 expect.objectContaining({
