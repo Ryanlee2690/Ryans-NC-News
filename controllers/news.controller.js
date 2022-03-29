@@ -1,4 +1,6 @@
-const { selectAllTopics, updateVotesById, lookupArticleById } = require("../models/news.model");
+
+const { selectAllTopics, updateVotesById, lookupArticleById, selectAllUsernames } = require("../models/news.model");
+
 
 
 exports.getTopics = (req, res, next) => {
@@ -12,12 +14,19 @@ exports.getTopics = (req, res, next) => {
   };
 
 
+
   exports.patchVotesById = (req, res, next) => {
     const articleID = req.params.article_id;
     const articleInfo = req.body;
     updateVotesById(articleInfo, articleID)
     .then((newVotesTotal) => {
       res.status(200).send({newVotesTotal})
+
+  exports.getUsernames = (req, res, next) => {
+    selectAllUsernames()
+    .then((usernames) => {
+     res.status(200).send({usernames})
+
     })
     .catch((err) => {
         next(err);
@@ -35,3 +44,4 @@ exports.getTopics = (req, res, next) => {
       })
 
   }
+

@@ -79,6 +79,23 @@ describe('PATCH /api/articles/:article_id', () => {
             expect(body).toEqual({msg: 'Please use numbers only.'})
         })
     })
+
+describe('GET /api/users', () => {
+    test('responds with an array of usernames ONLY', () => {
+    return request(app)
+    .get('/api/users')
+    .expect(200)
+    .then(({ body }) => {
+        const { usernames } = body;
+        usernames.forEach((username) => {
+            expect(username).toEqual(
+                expect.objectContaining({
+                    username: expect.any(String)
+                })
+            )
+        })
+    }) 
+})
 })
 
 describe('GET /api/articles/:article_id', () => {
