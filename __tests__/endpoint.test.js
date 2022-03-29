@@ -66,28 +66,16 @@ describe('PATCH /api/articles/:article_id', () => {
             expect(body).toEqual({ newVotesTotal: 50})
         })
     })
-    test('If the number would go below 0, it remains at 0', () => {
+    test('If input is NaN, return a 400 error and a message.', () => {
         const articleUpdates = {
-            inc_votes: -500
+            inc_votes: 'Not a number'
         };
         return request(app)
         .patch('/api/articles/1')
         .send(articleUpdates)
-        .expect(200)
+        .expect(400)
         .then(({body}) => {
-            expect(body).toEqual({ newVotesTotal: 0})
-        })
-    } )
-    test('If input is NaN, return an error and a sarcastic message.', () => {
-        const articleUpdates = {
-            inc_votes: 'Im an idiot'
-        };
-        return request(app)
-        .patch('/api/articles/1')
-        .send(articleUpdates)
-        .expect(404)
-        .then(({body}) => {
-            expect(body).toEqual({msg: 'Is it that hard to just use numbers?'})
+            expect(body).toEqual({msg: 'Please use numbers only.'})
         })
     })
 })
