@@ -40,3 +40,22 @@ describe('GET /api/topics', () => {
         } )
     })
 })
+
+describe('GET /api/users', () => {
+    test('responds with an array of usernames ONLY', () => {
+    return request(app)
+    .get('/api/users')
+    .expect(200)
+    .then(({ body }) => {
+        const { usernames } = body;
+        console.log(usernames)
+        usernames.forEach((username) => {
+            expect(username).toEqual(
+                expect.objectContaining({
+                    username: expect.any(String)
+                })
+            )
+        })
+    }) 
+})
+})
