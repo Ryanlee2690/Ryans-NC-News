@@ -1,4 +1,4 @@
-const { selectAllTopics, lookupArticleById, updateVotesById, selectAllUsernames, addCommentCount } = require("../models/news.model");
+const { selectAllTopics, lookupArticleById, updateVotesById, selectAllUsernames, selectAllArticles  } = require("../models/news.model");
 
 exports.getTopics = (req, res, next) => {
     selectAllTopics()
@@ -44,10 +44,12 @@ exports.getTopics = (req, res, next) => {
     })
   };
 
-  exports.commentCounter = (req, res, next) => {
-    addCommentCount()
-    .then((comments) => {
-      console.log(comments)
+  exports.getAllArticles = (req, res, next) => {
+    selectAllArticles()
+    .then((articles) => {
+      res.status(200).send({articles})
+    })
+    .catch((err) => {
+      next(err);
     })
   }
- 
