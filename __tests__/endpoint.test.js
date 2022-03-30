@@ -166,3 +166,23 @@ describe('/api/articles should get all articles in date desc order', () => {
 })
 
    
+describe('/api/articles/:article_id/comments ENDPOINT', () => {
+    test('Gives the comments from the article_id', () => {
+        return request(app)
+        .get('/api/articles/3/comments')
+        .expect(200)
+        .then(({ body }) => {
+            expect(body.comments[0].comment_id).toBe(10)
+            expect(body.comments[1].comment_id).toBe(11)
+            expect(body.comments[0]).toEqual(
+                expect.objectContaining({
+                    comment_id: expect.any(Number),
+                    body: expect.any(String),
+                    article_id: expect.any(Number),
+                    author: expect.any(String),
+                    votes: expect.any(Number),
+                    created_at: expect.any(String)
+                }))
+        })
+    })
+})

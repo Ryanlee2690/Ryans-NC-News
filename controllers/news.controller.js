@@ -1,4 +1,4 @@
-const { selectAllTopics, lookupArticleById, updateVotesById, selectAllUsernames, selectAllArticles  } = require("../models/news.model");
+const { selectAllTopics, lookupArticleById, updateVotesById, selectAllUsernames, selectAllArticles, selectArticleComments  } = require("../models/news.model");
 
 exports.getTopics = (req, res, next) => {
     selectAllTopics()
@@ -51,5 +51,13 @@ exports.getTopics = (req, res, next) => {
     })
     .catch((err) => {
       next(err);
+    })
+  }
+
+  exports.getArticleComments = (req, res, next) => {
+    const id = req.params.article_id;
+    selectArticleComments(id)
+    .then((comments) => {
+      res.status(200).send({comments})
     })
   }
