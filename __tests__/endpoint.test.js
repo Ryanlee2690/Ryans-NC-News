@@ -146,7 +146,6 @@ describe('/api/articles should get all articles in date desc order', () => {
         .get('/api/articles')
         .expect(200)
         .then(({ body }) => {
-            console.log(body)
             const { articles } = body;
             articles.forEach((article) => {
                 expect(article).toEqual(
