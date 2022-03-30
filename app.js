@@ -14,7 +14,6 @@ app.patch('/api/articles/:article_id', patchVotesById)
 
 app.get('/api/users', getUsernames)
 
-
 app.use('/*', (req, res) => {
     res.status(404).send({ msg: '404: Page Not Found.' });
 });
