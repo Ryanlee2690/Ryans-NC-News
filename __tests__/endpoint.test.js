@@ -42,44 +42,6 @@ describe('GET /api/topics', () => {
 })
 
 
-describe('PATCH /api/articles/:article_id', () => {
-    test('status:200, responds with votes increased by amount added', () => {
-        const articleUpdates = {
-            inc_votes: 3
-        };
-        return request(app)
-        .patch('/api/articles/1')
-        .send(articleUpdates)
-        .expect(200)
-        .then(({body}) => {
-            expect(body).toEqual({ newVotesTotal: 103 })
-        })
-    })
-    test('Works with negative numbers', () => {
-        const articleUpdates = {
-            inc_votes: -50
-        };
-        return request(app)
-        .patch('/api/articles/1')
-        .send(articleUpdates)
-        .expect(200)
-        .then(({body}) => {
-            expect(body).toEqual({ newVotesTotal: 50})
-        })
-    })
-    test('If input is NaN, return a 400 error and a message.', () => {
-        const articleUpdates = {
-            inc_votes: 'Not a number'
-        };
-        return request(app)
-        .patch('/api/articles/1')
-        .send(articleUpdates)
-        .expect(400)
-        .then(({body}) => {
-            expect(body).toEqual({msg: 'Please use numbers only.'})
-        })
-    })
-
 describe('GET /api/users', () => {
     test('responds with an array of usernames ONLY', () => {
     return request(app)
