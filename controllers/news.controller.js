@@ -1,4 +1,4 @@
-const { selectAllTopics, lookupArticleById, updateVotesById, selectAllUsernames } = require("../models/news.model");
+const { selectAllTopics, lookupArticleById, updateVotesById, selectAllUsernames, addCommentCount } = require("../models/news.model");
 
 exports.getTopics = (req, res, next) => {
     selectAllTopics()
@@ -43,3 +43,11 @@ exports.getTopics = (req, res, next) => {
         next(err);
     })
   };
+
+  exports.commentCounter = (req, res, next) => {
+    addCommentCount()
+    .then((comments) => {
+      console.log(comments)
+    })
+  }
+ 

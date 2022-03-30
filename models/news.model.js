@@ -38,3 +38,4 @@ exports.selectAllUsernames = () => {
         return rows
     });
 };
+
