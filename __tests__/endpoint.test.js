@@ -185,4 +185,12 @@ describe('/api/articles/:article_id/comments ENDPOINT', () => {
                 }))
         })
     })
+    test('Gives correct error if wrong ID input', () => {
+        return request(app)
+        .get('/api/articles/97979/comments')
+        .expect(404)
+        .then(({ body }) => {
+            expect(body).toEqual({msg : 'Invalid ID'})
+        })
+    })
 })
